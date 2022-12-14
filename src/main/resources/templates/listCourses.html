@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Welcome and Choose a Course</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Courses List</h1>
+</header>
+<main>
+    <h2>Choose course:</h2>
+    <form method="post" th:action="@{/courses}">
+        <ul style="list-style: none">
+            <li th:each="course : ${courseList}">
+                <input type="radio" name="courseId" th:value="${course.getCourseId()}"><th:block th:text="${course.getName()}"></th:block>
+                <button type="submit" style="background-color: darkgrey"  name="action" th:value="edit- + ${course.getCourseId()}">Edit</button>
+                <button type="submit" style="background-color: red" th:onclick="'javascript:deleteCourse(' + ${course.getCourseId()} + ')'">Delete</button>
+
+            </li>
+        </ul>
+
+        <br/>
+        <button type="submit">Submit</button>
+    </form>
+    <form th:method="get" th:action="@{/courses/add-form}">
+        <button type="submit">Add new course</button>
+    </form>
+
+</main>
+<script>
+    function deleteCourse(id) {
+        fetch('/courses/delete/' + id,  {
+            method: 'DELETE'
+        }).then(
+            function (response)
+            {
+                return response
+            }
+        ) .then(function(response) {
+            // When the page is loaded convert it to text
+            window.location.reload();
+        })
+
+    }
+</script>
+</body>
+</html>
