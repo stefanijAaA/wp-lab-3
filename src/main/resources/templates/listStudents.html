@@ -35,7 +35,15 @@
     <form method="post" th:action="@{/AddStudent}">
         <ul style="list-style: none">
             <li th:each="student : ${studentList}">
-                <input type="radio" name="studentUsername" th:value="${student.getUsername()}"><th:block th:text="${student.getName()}"></th:block> <th:block th:text="${student.getSurname()}"></th:block><br/>
+                <input type="radio" name="studentUsername" th:value="${student.getUsername()}"><th:block th:text="${student.getName()}"></th:block> <th:block th:text="${student.getSurname()}"></th:block>
+                <input type="datetime-local" name="gradeDatetime" />
+                <select name="grade">
+                    <option th:value="'A'" th:text="A"></option>
+                    <option th:value="'B'" th:text="B"></option>
+                    <option th:value="'C'" th:text="C"></option>
+                    <option th:value="'D'" th:text="D"></option>
+                    <option th:value="'F'" th:text="F"></option>
+                </select>
             </li>
         </ul>
         <br/>
