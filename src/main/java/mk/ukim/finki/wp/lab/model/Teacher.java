@@ -1,8 +1,9 @@
 package mk.ukim.finki.wp.lab.model;
 
 import lombok.Data;
+import mk.ukim.finki.wp.lab.model.attributeclasses.TeacherFullname;
+import mk.ukim.finki.wp.lab.model.converters.TeacherFullnameConverter;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -13,15 +14,14 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String surname;
+    @Convert(converter = TeacherFullnameConverter.class)
+    private TeacherFullname fullName;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfEmployment;
+
     public Teacher(String name, String surname) {
-        this.id=(long)(Math.random()*1000);
-        this.name = name;
-        this.surname = surname;
+        this.fullName=new TeacherFullname(name, surname);
     }
 
 
